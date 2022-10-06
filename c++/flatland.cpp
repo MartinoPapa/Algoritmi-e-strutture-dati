@@ -10,8 +10,7 @@ ofstream output("output.txt");
 const bool Sx = 0;
 const bool Dx = 1; // true
 
-// funziona per tutti i casi N=5;
-bool *nonRaggiungibili(bool v[], bool triste[], int N)
+void flatland(bool v[], bool *triste, int N)
 {
     bool hasAssistman = false;
     int posAssistman = -2;
@@ -90,7 +89,6 @@ bool *nonRaggiungibili(bool v[], bool triste[], int N)
             hasAssistman = false;
         }
     }
-    return triste;
 }
 
 int main()
@@ -102,11 +100,10 @@ int main()
     char c;
     for (int i = 0; i < N; i++)
     {
-        if ((N - i) % 2 == 0)
-            triste[i] = false;
-        else
+        if (i % 2 == 0)
             triste[i] = true;
-        // triste[i]=true;
+        else
+            triste[i] = false;
         input >> c;
         if (c == 's')
             v[i] = Sx;
@@ -114,8 +111,7 @@ int main()
             v[i] = Dx;
     }
 
-    bool *risultati;
-    risultati = nonRaggiungibili(v, triste, N);
+    flatland(v, triste, N);
 
     string s = "";
     int numRes = 0;
