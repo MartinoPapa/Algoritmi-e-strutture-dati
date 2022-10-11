@@ -65,8 +65,46 @@ void mergeSort(int *array, int first, int last)
    }
 }
 
-void mergeK(int *array, int pirmi[], int last, int k) {
-   
+void mergeK(int *array, int k, int primi[], int last)
+{
+   int index[k];
+   for (int i = 0; i < k; i++)
+   {
+      index[i] = primi[i];
+   }
+   int tmp[last-primi[0]+1];
+   int min, posMin;
+   for (int i = primi[0]; i <= last; i++)
+   {
+      min = INT16_MAX;
+      posMin=0;
+      for (int j = 0; j < k - 1; j++)
+      {
+         if (index[j] < primi[j + 1])
+         {
+            if (array[index[j]] < min)
+            {
+               posMin = j;
+               min = array[index[j]];
+            }
+         }
+      }
+      if (index[k - 1] <= last)
+      {
+         if (array[index[k - 1]] < min)
+         {
+            posMin = k - 1;
+            min = array[index[k - 1]];
+         }
+      }
+      tmp[i]=min;
+      index[posMin]++;
+   }
+   for (int i = 0; i <= last; i++)
+   {
+      array[i+primi[0]]=tmp[i];
+   }
+   stampa(tmp, sizeof(tmp));
 }
 
 void mergeSortK(int *array, int first, int last, int k)
@@ -82,6 +120,7 @@ void mergeSortK(int *array, int first, int last, int k)
          mergeSortK(array, primi[i - 1], primi[i] - 1, k);
       }
       mergeSortK(array, primi[k - 1], last, k);
+      mergeK(array, k, primi, last);
    }
 }
 int main()
@@ -93,6 +132,6 @@ int main()
    {
       input >> arr[i];
    }
-   mergeSortK(arr, 0, n - 1, 4);
+   mergeSortK(arr, 0, n - 1, 2);
    stampa(arr, n);
 }
