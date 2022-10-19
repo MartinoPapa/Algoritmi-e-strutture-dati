@@ -1,3 +1,5 @@
+#include <algorithm>
+
 using namespace std;
 
 const int PRE = 0;
@@ -93,5 +95,24 @@ struct binary_tree
             s->append(to_string(this->value) + " ");
             this->right->dfs_pre_order_rec(s);
         }
+    }
+    int numero_foglie()
+    {
+        if (this != NULL)
+        {
+            if (this->left == NULL && this->right == NULL) return 1;
+            else return this->left->numero_foglie() + this->right->numero_foglie();
+        }
+        return 0;
+    }
+    int grado_sbilanciamento()
+    {
+        if (this != NULL)
+        {
+            int numLeft = this->left->numero_foglie();
+            int numRight = this->right->numero_foglie();
+            return max({abs(numLeft - numRight), this->right->grado_sbilanciamento(), this->left->grado_sbilanciamento()});
+        }
+        return 0;
     }
 };

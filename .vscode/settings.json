@@ -16,7 +16,12 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "type_traits": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "bit": "cpp",
+        "*.tcc": "cpp",
+        "string_view": "cpp",
+        "limits": "cpp",
+        "numeric": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

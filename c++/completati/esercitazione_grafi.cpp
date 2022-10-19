@@ -30,20 +30,12 @@ int cammino_monotono_stretto(binary_tree *t)
             {
                 maxL = 1 + cammino_monotono_stretto(t->left);
             }
-            else
-            {
-                maxL = max(maxL, cammino_monotono_stretto(t->left));
-            }
         }
         if (t->right != NULL)
         {
             if (t->value < t->right->value)
             {
                 maxR = 1 + cammino_monotono_stretto(t->right);
-            }
-            else
-            {
-                maxR = max(maxR, cammino_monotono_stretto(t->right));
             }
         }
     }
@@ -60,6 +52,6 @@ int main()
     right.value = 3;
     nodo.insert_left(&left);
     nodo.insert_right(&right);
-    cout << nodo.dfs(IN);
+    cout << nodo.grado_sbilanciamento();
     return 0;
 }

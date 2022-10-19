@@ -1,13 +1,12 @@
 #include <iostream>
 #include <fstream> // file di testo
 #include <utility>
-#include "martino.h"
+#include "array.h"
 
 using namespace std;
 
 ifstream input("input.txt");
 ofstream output("output.txt");
-
 
 int main()
 {
@@ -19,7 +18,6 @@ int main()
         input >> vec[i];
     }
     cout << stampa_array(vec, N);
-    ruota_array(vec, N, 2);
-    cout << stampa_array(vec, N);
+    cout << binary_reserch(vec, N ,5);
     return 0;
 }
