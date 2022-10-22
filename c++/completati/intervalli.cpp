@@ -37,6 +37,7 @@ int main()
 
     sort(intervalli, intervalli + N, comparePairs); // ordina per il primo elemento
 
+    //fondo gli intervalli tra loro quando possibile
     pair<int, int> *mergedIntervalli;
     mergedIntervalli = new pair<int, int>[N];
     int NumMerged = 0;
@@ -62,6 +63,7 @@ int main()
     int inizioMax=0, fineMax=0;
     int l;
     
+    //guardo gli spazi tra gli intervalli e cerco il più lungo
     for (int i = 0; i < NumMerged-1; i++)
     {
         l=mergedIntervalli[i+1].first-mergedIntervalli[i].second;

@@ -21,7 +21,16 @@
         "*.tcc": "cpp",
         "string_view": "cpp",
         "limits": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "optional": "cpp",
+        "system_error": "cpp",
+        "array": "cpp",
+        "tuple": "cpp",
+        "atomic": "cpp",
+        "unordered_map": "cpp",
+        "memory": "cpp",
+        "memory_resource": "cpp",
+        "cmath": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -47,10 +47,10 @@ int main()
         for (int iFinale = i; iFinale < R; iFinale++)
         {
             sumTmp = 0;
-            // finisco in ogni possibile colonna
+            // applico la sottosequenza
             for (int jFinale = 0; jFinale < C; jFinale++)
             {
-                sommeColonna[jFinale] += matrice[iFinale][jFinale];
+                sommeColonna[jFinale] += matrice[iFinale][jFinale]; //aggiungo solo l'i-esimo elemento della colonna alla volta, e manteno le somme salvate (risparmiato un for)
                 sumTmp += sommeColonna[jFinale];
                 if (sumTmp > sum)
                     sum = sumTmp;
