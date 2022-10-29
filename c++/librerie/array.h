@@ -118,7 +118,7 @@ int binary_reserch(int *array, int N, int e){
 int sottosequenza_max(int *v, int N){
    int seqTmp=0, seqMax=0;
    for(int i = 0; i<N; i++){
-        seqTmp += lista[i];
+        seqTmp += v[i];
         if(seqTmp > seqMax) seqMax=seqTmp; 
         else if(seqTmp < 0) seqTmp = 0;
    }
