@@ -63,7 +63,7 @@ struct grafo
         int *distanze = new int[n];
         q.push(v0);
         for (int i = 0; i < n; i++)
-            distanze[i] = INT16_MAX;
+            distanze[i] = -1;
         distanze[v0] = 0;
         int tmp, index;
         while (!q.empty())
@@ -73,7 +73,7 @@ struct grafo
             for (int i = 0; i < nodi[tmp].numEdge; i++)
             {
                 index = nodi[tmp].edge.at(i);
-                if (distanze[index] == INT16_MAX)
+                if (distanze[index] == -1)
                 {
                     distanze[index] = distanze[tmp] + 1;
                     q.push(index);
@@ -195,4 +195,105 @@ struct grafo
         }
         return INT16_MAX;
     }
+     int diametro(){
+        int max = 0;
+        int *dist;
+        for (int i = 0; i < n; i++)
+        {
+            dist=this->erdos(i);
+            for (int j = 0; j < n; j++)
+            {
+                if(dist[j]>max) max=dist[j];
+            }       
+        }   
+        return max;
+    }
+    int *num_cammini(int a, int b)
+    {
+        int *numcammini = new int[n];
+        int *distanze = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            distanze[i] = -1;
+            numcammini[i] = 0;
+        }
+        distanze[a] = 0;
+        numcammini[a] = 1;
+        queue<int> q;
+        q.push(a);
+        int tmp;
+        while (!q.empty())
+        {
+            tmp = q.front();
+            q.pop();
+            for (int vicino:this->nodi[tmp].edge)
+            {
+                if(distanze[vicino]==-1){
+                    distanze[vicino] = distanze[tmp]+1;
+                    q.push(vicino);
+                }
+                if(distanze[vicino]==distanze[tmp]+1){
+                    numcammini[vicino] += numcammini[tmp];
+                }
+            }
+        }
+        int *res = new int[2];
+        res[0]=distanze[b];
+        res[1]=numcammini[b];
+        return res;
+    }
 };
+
+int distanza_minima(int N, bool *sicuro, int *distanza)
+{
+    int min = INT16_MAX;
+    int indexMin;
+    for (int i = 0; i < N; i++)
+    {
+        if (!sicuro[i] && distanza[i] < min)
+        {
+            min = distanza[i];
+            indexMin = i;
+        }
+    }
+    return indexMin;
+}
+
+int *dijkstra(int **matrice_adiacenza, int N, int v0)
+{
+    int *distanza = new int[N];
+    bool *sicuro = new bool[N];
+
+    for (int i = 0; i < N; i++)
+    {
+        sicuro[i] = false;
+        distanza[i] = INT16_MAX;
+    }
+    distanza[v0] = 0;
+    int vicino;
+    for (int i = 0; i < N - 1; i++)
+    {
+        vicino = distanza_minima(N, sicuro, distanza);
+        sicuro[vicino] = true;
+        if (distanza[vicino] != INT16_MAX)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                if (!sicuro[j] && matrice_adiacenza[vicino][j] != INT16_MAX && (distanza[vicino] + matrice_adiacenza[vicino][j] < distanza[j]))
+                {
+                    distanza[j] = distanza[vicino] + matrice_adiacenza[vicino][j];
+                }
+            }
+        }
+    }
+    return distanza;
+}
+
+void stampa_distanza(int *distanza, int N, int v0)
+{
+    cout << "Distanze da " << v0 << ":" << endl;
+    for (int i = 0; i < N; i++)
+    {
+        cout << i << ") " << distanza[i] << endl;
+    }
+}
