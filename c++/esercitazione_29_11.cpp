@@ -46,7 +46,7 @@ int samarcanda(int *vec, int i, int massimo, int maxY){
         maxY = max(vec[i],maxY);
         return samarcanda(vec, i-1, massimo, maxY);
     }
-    return massimo == INT16_MIN ? 0 : massimo;
+    return massimo < 0 ? 0 : massimo; //oo cavallo
 }
 
 int main()
